@@ -1,8 +1,9 @@
 import React from 'react';
 //import Header from '../component/Header';
 //import MainBody from '../component/MainBody';
-import Signup from './components/Signing/Signup';
-
+// import Signup from './components/Signing/Signup';
+import Signcomponent from './components/Signing/Signup';
+import Logincomponent from './components/Signing/Loginup';
 
 // function App() {
 //   return (
@@ -30,7 +31,9 @@ import Signup from './components/Signing/Signup';
 function App() {
   return (
     <div>
-      <Signup/>
+      {/* <Signup/> */}
+      {/* <Signcomponent/> */}
+      <Logincomponent/>
     </div>
   )
 }
