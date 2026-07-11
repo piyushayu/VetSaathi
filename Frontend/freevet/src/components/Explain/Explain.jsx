@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Wideinfo from './Wideinfo'
 import { nanoid } from 'nanoid'
-import { useParams } from 'react-router-dom'
+import { data, useParams } from 'react-router-dom'
 
 const Particulardisease = [
     {
@@ -32,7 +32,10 @@ const Particulardisease = [
     }
 ]
 
-const Idofoverview = Particulardisease.map((dis) => ({
+
+function Explain() {
+
+  const disease = Particulardisease.map((dis) => ({
      ...dis,
      overview: dis.overview.map((text) => ({ text, id: nanoid() })),
      Symptoms: dis.Symptoms.map((text) => ({ text, id: nanoid() })),
@@ -44,25 +47,39 @@ const Idofoverview = Particulardisease.map((dis) => ({
      Treatment : dis.Treatment.map((text) => ({text , id : nanoid()}))
 }))
 
-function Explain() {
+  // const {diseaseId} = useParams()
+  // const decodename = decodeURIComponent(diseaseId)
+  // const [disease, setDisease] = useState(null)
+  // const [loading, setLoading] = useState(true)
+  // const [error, setError] = useState('')
 
-  const {diseaseId} = useParams()
-  const decodename = decodeURIComponent(diseaseId)
+  // useEffect(() => {
+  //   fetch(`/api/disease/${decodename}`)
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     setDisease(data)
+  //     setLoading(false)
+  //   })
+  //   .catch(() => {
+  //     setError("Failed to load")
+  //     setLoading(false)
+  //   })
 
-  const match = Idofoverview.find(
-    (d) => d.name.toLowerCase() === decodename.toLowerCase()
-  )
+  // }, [diseaseId])
 
-  if(!match) return <div> Disease not match </div>
+  // if (loading) return <div>Loading...</div>
+  // if (error)   return <div>{error}</div>
+  // if (!disease) return <div>Disease not found.</div>
+
   return (
     <div className="w-full flex flex-col gap-6">
       <Wideinfo 
-        name={match?.name}
-        context={match?.context}
-        overview={match?.overview || []}
-        symptoms={match?.Symptoms|| []}
-        medicine={match?.Medicine || []}
-        treatment={match?.Treatment || []}
+        name={disease[0]?.name}
+        context={disease[0]?.context}
+        overview={disease[0]?.overview || []}
+        symptoms={disease[0]?.Symptoms|| []}
+        medicine={disease[0]?.Medicine || []}
+        treatment={disease[0]?.Treatment || []}
       />
     </div>
   )

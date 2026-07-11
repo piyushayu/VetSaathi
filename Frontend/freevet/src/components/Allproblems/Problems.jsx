@@ -6,7 +6,7 @@ import Header from '../Header'
 import Page from '../Diseases/page'
 import { MdWarning } from 'react-icons/md'
 import { nanoid } from 'nanoid'
-import { useOutlet } from 'react-router-dom'
+import { useOutlet, useParams } from 'react-router-dom'
 
 const rawDiseases = [
   {
@@ -32,7 +32,7 @@ const rawDiseases = [
     info: [
       "Extremely contagious virus spread through infected feces, contaminated surfaces, and direct contact",
       "Attacks the intestinal tract causing severe bloody vomiting and diarrhea",
-      "Leads to rapid dehydration, shock, and can cause death within 48–72 hours",
+      "Leads to rapid dehydration, shock, and can cause death within 48 to 72 hours",
       "Particularly deadly for puppies and unvaccinated dogs",
       "The virus is resilient and can survive in the environment for months"
     ]
@@ -61,7 +61,7 @@ const rawDiseases = [
 
 
 
-const Diseases = rawDiseases.map((disease) => ({
+const problems = rawDiseases.map((disease) => ({
     ...disease , info : disease.info.map((text) => ({text , id : nanoid()}))
 }))
 
@@ -70,6 +70,7 @@ function Problems() {
 
   const outlet = useOutlet()
   const [ warn , setWarn] = useState(false)
+//const [problems , setProblems] = useState(null)
 
   useEffect(() => {
    const seen = localStorage.getItem("disclaimer")
@@ -89,13 +90,23 @@ function Problems() {
     return outlet
   }
 
+  // const {animaltype} = useParams()
+
+  // useEffect(() => {
+  //    fetch(`/api/disease?animal=${animaltype}`)
+  //    .then(res => res.json())
+  //   .then(data => setProblems(data))
+  // },[animaltype])
+
+
+
   return (
     <div className='flex flex-col gap-5 justify-center '>
 
     <div className='flex flex-row flex-wrap justify-center gap-6 w-full'>
-  {Diseases.slice(0, 5).map((disease) => (
-    <div key={disease.name} className='w-full max-w-sm flex justify-center'>
-      <Diseasecard Name={disease.name} Info={disease.info} id={id} />
+  {problems.slice(0, 5).map((problem) => (
+    <div key={problem.name} className='w-full max-w-sm flex justify-center'>
+      <Diseasecard Name={problem.name} Info={problem.info} id={id} />
           </div>
   ))}
         </div>

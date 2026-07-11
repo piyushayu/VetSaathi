@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from './Button';
 import { ArrowRightIcon } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 
 
 function MainBody() {
@@ -19,8 +19,8 @@ function MainBody() {
     //await data fetch from backend api
 
     setLoading(false)
-    if(data.found){
-     navigate(`/diseases/problems/explain/${encodeURIComponent(data.name)}`)
+    if(animaldata.found){
+     navigate(`/diseases/${animaldata.animal}/explain/${encodeURIComponent(animaldata.name)}`)
     }else{
       setError("disease not found , try symptoms test")
     }
