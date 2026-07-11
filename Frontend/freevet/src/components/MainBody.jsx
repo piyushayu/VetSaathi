@@ -1,13 +1,30 @@
 import React, { useState } from 'react';
 import Button from './Button';
 import { ArrowRightIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 
 function MainBody() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate()
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if(!searchQuery.trim())return
+    setLoading(true)
+    setError("")
+
+    //await data fetch from backend api
+
+    setLoading(false)
+    if(data.found){
+     navigate(`/diseases/problems/explain/${encodeURIComponent(data.name)}`)
+    }else{
+      setError("disease not found , try symptoms test")
+    }
+    
     
   };
 
@@ -40,70 +57,81 @@ function MainBody() {
         </div>
 
         {/* Search Row */}
-        <form 
-          onSubmit={handleSearch}
-          className="flex items-center gap-3 p-2 bg-neutral-900/50 border border-white/10 rounded-2xl shadow-md focus-within:border-violet-500/50 transition-all duration-300"
-        >
-          <div className="flex-1 flex items-center pl-3 gap-2">
-            <svg
-              className="w-5 h-5 text-neutral-500"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search symptoms, diseases, or vets..."
-              className="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-neutral-500"
-            />
-          </div>
-          <Button
-            type="submit"
-            variant="primary"
-            className='flex flex-row items-center gap-5'
-            // icon={
-            //   <svg
-            //     className="w-4 h-4"
-            //     fill="none"
-            //     stroke="currentColor"
-            //     viewBox="0 0 24 24"
-            //     xmlns="http://www.w3.org/2000/svg"
-            //   >
-            //     <path
-            //       strokeLinecap="round"
-            //       strokeLinejoin="round"
-            //       strokeWidth="2"
-            //       d="M14 5l7 7m0 0l-7 7m7-7H3"
-            //     />
-            //   </svg>
-            // }
-            // iconPosition="right"
+        <div className="flex flex-col gap-2">
+          <form 
+            onSubmit={handleSearch}
+            className="flex items-center gap-3 p-2 bg-neutral-900/50 border border-white/10 rounded-2xl shadow-md focus-within:border-violet-500/50 transition-all duration-300"
           >
-            Start Search
-            <ArrowRightIcon/>
-          </Button>
-        </form>
+            <div className="flex-1 flex items-center pl-3 gap-2">
+              <svg
+                className="w-5 h-5 text-neutral-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); if(error) setError(''); }}
+                placeholder="Search symptoms, diseases, or vets..."
+                className="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-neutral-500"
+              />
+            </div>
+            <Button
+              type="submit"
+              variant="primary"
+              className='flex flex-row items-center gap-5'
+              // icon={
+              //   <svg
+              //     className="w-4 h-4"
+              //     fill="none"
+              //     stroke="currentColor"
+              //     viewBox="0 0 24 24"
+              //     xmlns="http://www.w3.org/2000/svg"
+              //   >
+              //     <path
+              //       strokeLinecap="round"
+              //       strokeLinejoin="round"
+              //       strokeWidth="2"
+              //       d="M14 5l7 7m0 0l-7 7m7-7H3"
+              //     />
+              //   </svg>
+              // }
+              // iconPosition="right"
+            >
+              Start Search
+              <ArrowRightIcon/>
+            </Button>
+          </form>
+
+          {error && (
+            <div
+              role="alert"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
+              style={{ animation: 'fadeInDown 0.25s ease-out' }}
+            >
+              <span>{error}</span>
+            </div>
+          )}
+        </div>
 
       </div>
 
-      {/* Right Column: Image Space Placeholder */}
       <div className="lg:col-span-7 flex">
         <div className="w-full min-h-[400px] lg:min-h-full rounded-2xl bg-neutral-950/30 border-2 border-dashed border-white/10 hover:border-violet-500/30 backdrop-blur-sm flex flex-col items-center justify-center p-8 transition-all duration-300 relative group overflow-hidden">
           
-          {/* Subtle Background Glow behind placeholder */}
+         
           <div className="absolute w-72 h-72 rounded-full bg-violet-600/10 blur-[80px] -z-10 group-hover:bg-violet-600/15 transition-all duration-300" />
           
-          {/* Vector Graphics representing animal placeholders */}
+       
           <div className="flex flex-col items-center text-center gap-4 max-w-sm">
             <div className="w-16 h-16 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-xl">
               <svg
