@@ -10,8 +10,8 @@ function Header({
   const mergedClassName = className;
   const navItems = [ 
     {
-      title : "Vet",
-      href : "/vet"
+      title : "About",
+      href : "/about"
     },
     {
       title : "Diseases",

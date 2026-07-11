@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Link } from "react-router-dom"
 
  function Diseasecard({
   Name , 
@@ -32,7 +33,7 @@ import {
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Button className="w-full"> Explore </Button>
+        <Link to={`explain/${encodeURIComponent(Name)}`}><Button className="w-full"> Explore </Button></Link>
       </CardFooter>
     </Card>
   )

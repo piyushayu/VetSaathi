@@ -1,6 +1,7 @@
 import React from 'react'
 import Wideinfo from './Wideinfo'
 import { nanoid } from 'nanoid'
+import { useParams } from 'react-router-dom'
 
 const Particulardisease = [
     {
@@ -44,15 +45,24 @@ const Idofoverview = Particulardisease.map((dis) => ({
 }))
 
 function Explain() {
+
+  const {diseaseId} = useParams()
+  const decodename = decodeURIComponent(diseaseId)
+
+  const match = Idofoverview.find(
+    (d) => d.name.toLowerCase() === decodename.toLowerCase()
+  )
+
+  if(!match) return <div> Disease not match </div>
   return (
     <div className="w-full flex flex-col gap-6">
       <Wideinfo 
-        name={Idofoverview[0]?.name}
-        context={Idofoverview[0]?.context}
-        overview={Idofoverview[0]?.overview || []}
-        symptoms={Idofoverview[0]?.Symptoms|| []}
-        medicine={Idofoverview[0]?.Medicine || []}
-        treatment={Idofoverview[0]?.Treatment || []}
+        name={match?.name}
+        context={match?.context}
+        overview={match?.overview || []}
+        symptoms={match?.Symptoms|| []}
+        medicine={match?.Medicine || []}
+        treatment={match?.Treatment || []}
       />
     </div>
   )

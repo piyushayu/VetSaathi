@@ -11,6 +11,7 @@ import Symcheck from './components/Symptomcheck/Symcheck'
 import Signcomponent from './components/Signing/Signup'
 import Logincomponent from './components/Signing/Loginup'
 import Explain from './components/Explain/Explain'
+import Problems from './components/Allproblems/Problems'
 
 const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,7 +20,9 @@ const Router = createBrowserRouter(
     <Route path='' element={<Container/>}/>
     <Route path='about' element={<Info/>}/>
     <Route path='diseases' element={<Diseases/>}>
-    <Route path='explain' element={<Explain/>}/>
+    <Route path='problems' element={<Problems/>}>
+    <Route path='explain/:diseaseId'element={<Explain/>}/>
+    </Route>
     </Route>
     <Route path='symptoms' element={<Symcheck/>}/>
     <Route path='signup' element={<Signcomponent/>}/>

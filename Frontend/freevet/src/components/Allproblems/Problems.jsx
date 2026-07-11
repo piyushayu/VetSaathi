@@ -6,6 +6,7 @@ import Header from '../Header'
 import Page from '../Diseases/page'
 import { MdWarning } from 'react-icons/md'
 import { nanoid } from 'nanoid'
+import { useOutlet } from 'react-router-dom'
 
 const rawDiseases = [
   {
@@ -67,6 +68,7 @@ const Diseases = rawDiseases.map((disease) => ({
 
 function Problems() {
 
+  const outlet = useOutlet()
   const [ warn , setWarn] = useState(false)
 
   useEffect(() => {
@@ -82,9 +84,13 @@ function Problems() {
 
 
   const id = useId()
+
+  if (outlet) {
+    return outlet
+  }
+
   return (
     <div className='flex flex-col gap-5 justify-center '>
-        <Header className="w-auto mx-5 mt-3" />
 
     <div className='flex flex-row flex-wrap justify-center gap-6 w-full'>
   {Diseases.slice(0, 5).map((disease) => (

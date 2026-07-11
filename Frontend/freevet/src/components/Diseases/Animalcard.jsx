@@ -29,7 +29,7 @@ import { Link } from "react-router-dom"
         </CardDescription>
       </CardHeader>
       <CardFooter>
-        <Link to="explain"><Button className="w-full"> Explore </Button></Link>
+        <Link to="problems"><Button className="w-full"> Explore </Button></Link>
       </CardFooter>
     </Card>
   )
