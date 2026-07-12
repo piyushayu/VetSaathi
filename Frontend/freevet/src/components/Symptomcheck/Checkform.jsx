@@ -1,5 +1,7 @@
-import { nanoid } from 'nanoid'
 import React, { useState } from 'react'
+import { nanoid } from 'nanoid'
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const QUESTIONS_DATA = [
   {
@@ -33,21 +35,18 @@ const QUESTIONS_DATA = [
 
 const RESULTS_DATA = [
   {
-    id: 1,
     name: "Parvovirus Infection",
     image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=300&auto=format&fit=crop&q=60",
     link: "/diseases/parvo",
     desc: "A highly contagious viral disease of dogs that commonly causes acute gastrointestinal illness."
   },
   {
-    id: 2,
     name: "Canine Influenza (Flu)",
     image: "https://images.unsplash.com/photo-1537151608828-ea2b117b6297?w=300&auto=format&fit=crop&q=60",
     link: "/diseases/canine-flu",
     desc: "A contagious respiratory infection in dogs caused by specific type A influenza viruses."
   },
   {
-    id: 3,
     name: "Osteoarthritis",
     image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=300&auto=format&fit=crop&q=60",
     link: "/diseases/arthritis",
@@ -59,59 +58,81 @@ const Newquestions = QUESTIONS_DATA.map((questn) => (
   { ...questn , id : nanoid() , options : questn.options.map((text) => ({text , id : nanoid()}))}
 ))
 
+const NewResult = RESULTS_DATA.map((result) => (
+  { ...result , id : nanoid()}
+))
+
+
 function Checkform() {
+
+  const [currentIndex , setCurrentIndex] = useState(0)
+
+  const [isSubmitted , setIsSubmitted] = useState(false)
+
+  const [allanswer , setAllanswer] = useState({})
   
-  const [currentIndex, setCurrentIndex] = useState(0)
+  // Backend response and state management
+  // const [results, setResults] = useState([])
+  // const [loading, setLoading] = useState(false)
+  // const [error, setError] = useState('')
 
-  // 2. Stores the selected options for each question index in a key-value object.
-  //    Example format: { 0: "A", 1: "C" }
-  const [selectedAnswers, setSelectedAnswers] = useState({})
-
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  // --- DERIVED PROPERTIES ---
   const currentQuestion = Newquestions[currentIndex]
   const totalQuestions = Newquestions.length
+  const isAnswered = allanswer[currentIndex] !== undefined
   const isLastQuestion = currentIndex === totalQuestions - 1
-  const isAnswered = selectedAnswers[currentIndex] !== undefined
 
-  // --- ACTION HANDLERS ---
 
-  // Triggers when an option button (A, B, C, D) is clicked
-  const handleOptionSelect = (optionKey) => {
-    setSelectedAnswers({
-      ...selectedAnswers,
-      [currentIndex]: optionKey // Updates or sets the answer for the current question index
-    })
+  function Handleoptions (key) {
+      setAllanswer({
+        ...allanswer , [currentIndex] : key
+      })
+    
   }
 
-  // Progresses to the next question or completes the wizard
-  const handleNext = () => {
-    if (isLastQuestion) {
-      setIsSubmitted(true) // Triggers final submission and reveals the diagnosis section below
-    } else {
-      setCurrentIndex((prev) => prev + 1) // Moves to the next question
+  function Nextquestion (){
+      if(isLastQuestion){
+        setIsSubmitted(true)
+        // setLoading(true)
+        // setError('')
+        
+        // axios.post('/api/symptoms/check', { answers: allanswer })
+        //   .then(res => {
+        //     const mappedResults = res.data.map(item => ({
+        //       ...item,
+        //       id: nanoid()
+        //     }))
+        //     setResults(mappedResults)
+        //     setLoading(false)
+        //   })
+        //   .catch(err => {
+        //     console.error("Diagnosis error:", err)
+        //     setError('Failed to fetch diagnosis results. Showing mock data.')
+        //     setLoading(false)
+        //   })
+      }else{
+      setCurrentIndex((currentIndex) => currentIndex + 1)
+      }
+    }
+
+  const displayResults = results.length > 0 ? results : NewResult
+
+
+  function Previousquestion(){
+    if(currentIndex > 0){
+    setCurrentIndex((prev) => prev - 1)
     }
   }
 
-  // Returns to the previous question
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1) // Moves back one index step
-    }
-  }
-
-  // Resets the quiz wizard state to start fresh
-  const handleReset = () => {
-    setCurrentIndex(0)
-    setSelectedAnswers({})
+  function Resettest (){
+    setCurrentIndex(0),
+    setAllanswer({})
     setIsSubmitted(false)
   }
 
   return (
     <div className="w-full max-w-3xl mx-auto flex flex-col gap-6">
       
-      <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8 flex flex-col gap-6">
+       <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8 flex flex-col gap-6">
         
         <div className="flex items-center justify-between">
           <div className="px-4 py-1.5 bg-neutral-800 text-neutral-300 text-xs font-semibold rounded-full tracking-wider uppercase border border-neutral-700">
@@ -122,7 +143,6 @@ function Checkform() {
           </div>
         </div>
 
-        {/* Question Area */}
         <div className="bg-neutral-950/60 border border-neutral-800/80 rounded-xl p-5 min-h-[90px] flex items-center">
           <h2 className="text-base md:text-lg font-medium text-neutral-100 leading-relaxed">
             {currentQuestion.question}
@@ -131,19 +151,17 @@ function Checkform() {
 
         <div className="flex flex-col gap-3">
           {currentQuestion.options.map((option) => {
-            // Checks if this option is currently selected for the active question
-            const isSelected = selectedAnswers[currentIndex] === option.text.key
+           const isSelected = allanswer[currentIndex] === option.text.key
             return (
               <button
-                key={option.id}
-                onClick={() => handleOptionSelect(option.text.key)}
+                key={option.text.key}
+                onClick={() => Handleoptions(option.text.key)}
                 className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl border text-left text-sm transition-all duration-300 cursor-pointer ${
                   isSelected
                     ? "bg-white text-neutral-950 font-semibold border-white shadow-lg"
                     : "bg-neutral-950/40 border-neutral-800 hover:border-neutral-700 text-neutral-300 hover:bg-neutral-800/30"
                 }`}
               >
-                {/* Option Letter Circle */}
                 <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold border transition-colors ${
                   isSelected
                     ? "bg-neutral-950 text-white border-neutral-950"
@@ -157,91 +175,81 @@ function Checkform() {
           })}
         </div>
 
+       
         <div className="flex items-center justify-between mt-4">
-          {/* Previous Button: Hidden if we are on the first question, or once submitted */}
-          {currentIndex > 0 && !isSubmitted ? (
-            <button
-              onClick={handlePrevious}
-              className="px-6 py-2.5 bg-neutral-800 hover:bg-neutral-750 text-neutral-300 border border-neutral-700 rounded-xl text-sm font-medium transition-all cursor-pointer active:scale-[0.98]"
-            >
-              previous
-            </button>
-          ) : (
-            <div /> // Placeholder div to align the "Next/Submit" button to the right side
-          )}
+          
+          <button
+            className="px-6 py-2.5 bg-neutral-800 hover:bg-neutral-750 text-neutral-300 border border-neutral-700 rounded-xl text-sm font-medium transition-all cursor-pointer active:scale-[0.98]"
+          onClick={Previousquestion}
+          >
+            previous
+          </button>
 
-          {/* Next / Submit Button: Hidden after final submission */}
-          {!isSubmitted && (
-            <button
-              onClick={handleNext}
-              disabled={!isAnswered} // Disabled until an option is selected for the current question
-              className={`px-6 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 cursor-pointer active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed ${
-                isLastQuestion
-                  ? "bg-white text-neutral-950 hover:bg-neutral-100 shadow-md"
-                  : "bg-neutral-800 hover:bg-neutral-750 text-neutral-200 border border-neutral-700"
-              }`}
-            >
-              {isLastQuestion ? "Submit" : "Next"}
-            </button>
-          )}
+        
+          <button
+            className="px-6 py-2.5 bg-white text-neutral-950 rounded-xl text-sm font-semibold shadow-md cursor-pointer hover:bg-neutral-100 transition-all active:scale-[0.98]"
+          onClick={Nextquestion}
+          disabled = {!isAnswered}
+          >
+        {isLastQuestion ? "submit" : "next"}
+          </button>
         </div>
 
       </div>
 
-      {/* 2. Results Section (Becomes visible below only after form submission) */}
-      {isSubmitted && (
-        <div className="flex flex-col gap-4 mt-2 animate-fade-in">
-          
-          <div className="flex items-center justify-between px-1">
-            <h3 className="text-xs font-bold text-neutral-400 tracking-wider uppercase">
-              Possible Diagnoses
-            </h3>
-            <button 
-              onClick={handleReset}
-              className="text-xs text-neutral-400 hover:text-white underline cursor-pointer"
-            >
-              Start Over
-            </button>
-          </div>
+      { isSubmitted &&
+      <div className="flex flex-col gap-4 mt-2">
+        
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-xs font-bold text-neutral-400 tracking-wider uppercase">
+            Possible Diagnoses
+          </h3>
 
-          {/* Three disease cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {RESULTS_DATA.map((result) => (
-              <div
-                key={result.id}
-                className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:border-neutral-700 hover:shadow-xl"
-              >
-                {/* Disease Picture */}
-                <div className="h-32 bg-neutral-950 relative overflow-hidden flex items-center justify-center">
-                  <img
-                    src={result.image}
-                    alt={result.name}
-                    className="w-full h-full object-cover opacity-80"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-neutral-900 to-transparent" />
-                </div>
-
-                {/* Disease content details */}
-                <div className="p-4 flex flex-col gap-2 ">
-                  <h4 className="font-semibold text-sm text-neutral-200">
-                    {result.name}
-                  </h4>
-                  <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
-                    {result.desc}
-                  </p>
-                  <a
-                    href={result.link}
-                    className="mt-2 inline-flex items-center justify-center w-full py-2 bg-neutral-800 hover:bg-neutral-750 border border-neutral-700 text-neutral-200 text-xs font-semibold rounded-lg transition-all"
-                  >
-                    View Details
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-
+          <button className='underline' onClick={Resettest}>
+            Test again 
+          </button>
         </div>
-      )}
+
+        {loading && <div className="text-neutral-400 text-sm py-4">Analyzing symptoms...</div>}
+        {error && <div className="text-red-400 text-sm py-2">{error}</div>}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {NewResult.map((result) => (
+            <div
+              key={result.id}
+              className="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden flex flex-col transition-all duration-300 hover:border-neutral-700 hover:shadow-xl"
+            >
+              
+              <div className="h-32 bg-neutral-950 relative overflow-hidden flex items-center justify-center">
+                <img
+                  src={result.image}
+                  alt={result.name}
+                  className="w-full h-full object-cover opacity-80"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-neutral-900 to-transparent" />
+              </div>
+
+              
+              <div className="p-4 flex flex-col gap-2 ">
+                <h4 className="font-semibold text-sm text-neutral-200">
+                  {result.name}
+                </h4>
+                <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
+                  {result.desc}
+                </p>
+                <Link
+                to={result.link}
+                  className="mt-2 inline-flex items-center justify-center w-full py-2 bg-neutral-800 hover:bg-neutral-750 border border-neutral-700 text-neutral-200 text-xs font-semibold rounded-lg transition-all"
+                >
+                  View Details
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div> }
 
     </div>
   )
