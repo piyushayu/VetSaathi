@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import ReactLogo from "../../assets/react.svg";
+import { Link } from "react-router-dom";
 
 function Signimage() {
   return (
@@ -69,9 +70,9 @@ function Signup() {
         <div className="flex flex-row items-center justify-center text-xs text-muted-foreground mt-2">
           <span>Already have an account?</span>
           <CardAction className="inline ml-1">
-            <Button variant="link" className="p-0 mb-0.5 text-primary underline-offset-4 hover:underline">
+           <Link to="/login"><Button variant="link" className="p-0 mb-0.5 text-primary underline-offset-4 hover:underline">
               Login
-            </Button>
+            </Button></Link>
           </CardAction>
         </div>
       </CardFooter>

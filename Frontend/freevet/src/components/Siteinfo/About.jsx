@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import Button from '../Button';
+import { Link } from 'react-router-dom';
 
 function About({openform , open}) {
   const socialLinks = [
@@ -157,12 +158,12 @@ function About({openform , open}) {
                   <h3 className="font-bold text-white text-sm">Have ideas to improve Freevet?</h3>
                   <p className="text-xs text-neutral-400">We constantly improve our services and database based on user suggestions.</p>
                 </div>
-                <Button 
+                <Link to="/contact"><Button 
                   Clickfunctn={openform}
                   className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white rounded-full transition-all font-semibold shadow-md active:scale-95 whitespace-nowrap cursor-pointer text-xs"
                 >
                   Contact us here
-                </Button>
+                </Button></Link>
               </div>
 
             </div>

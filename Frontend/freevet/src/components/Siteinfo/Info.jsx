@@ -1,17 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import About from './About'
 import Contact from './Contact'
 
 function Info() {
+    const location = useLocation()
+    const navigate = useNavigate()
 
-    const [isOpen , setIsOpen] = useState(false)
+    const [isOpen , setIsOpen] = useState(location.pathname === '/contact')
+
+    useEffect(() => {
+      setIsOpen(location.pathname === '/contact')
+    }, [location.pathname])
 
     function Openform(){
-      setIsOpen(true)
+      navigate('/contact')
     }
 
    function Closeform (){
-      setIsOpen(false)
+      navigate('/about')
    }
 
   return (

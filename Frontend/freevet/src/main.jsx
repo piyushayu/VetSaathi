@@ -19,6 +19,7 @@ const Router = createBrowserRouter(
     <Route path='/' element={<Site/>}>
     <Route path='' element={<Container/>}/>
     <Route path='about' element={<Info/>}/>
+    <Route path='contact' element={<Info/>}/>
     <Route path='diseases' element={<Diseases/>}>
     <Route path=':animaltype' element={<Problems/>}>
     <Route path='explain/:diseaseId'element={<Explain/>}/>
