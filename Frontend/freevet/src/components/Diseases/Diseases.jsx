@@ -4,58 +4,7 @@ import Animalcard from './Animalcard'
 import Page from './page'
 import { MdWarning } from 'react-icons/md'
 
-const Allanimals = [
-  {
-    name : "Dog",
-    Info : "Dogs are loyal and intelligent companions, often kept as household pets or working dogs for herding and security.",
-    href : "/dog"
-  },
-  {
-    name : "Cow",
-    Info : "Cows are gentle, herbivorous farm animals raised primarily for milk production, dairy products, and agricultural labor.",
-    href : "/cow"
-  },
-  {
-    name : "Horse",
-    Info : "Horses are strong, majestic animals widely utilized for riding, transport, sports, and working on farms.",
-    href : "/horse"
-  },
-  {
-    name : "Sheep",
-    Info : "Sheep are gentle, flocking ruminant animals raised for their warm woolly fleece, milk, and meat.",
-    href : "/sheep"
-  },
-  {
-    name : "Goat",
-    Info : "Goats are active, curious, and resilient animals known for their climbing ability, raised for milk, meat, and fiber.",
-    href : "/goat"
-  },
-  {
-    name : "Cat",
-    Info : "Cats are agile, carnivorous domestic pets known for their independent nature, companionship, and pest control.",
-    href : "/cat"
-  },
-  {
-    name : "Pig",
-    Info : "Pigs are highly intelligent, social omnivores kept on farms and valued for food production and keen senses.",
-    href : "/pig"
-  },
-  {
-    name : "Rabbit",
-    Info : "Rabbits are small, swift herbivores with long ears and soft fur, commonly raised as gentle family pets.",
-    href : "/rabbit"
-  },
-  {
-    name : "Chicken",
-    Info : "Chickens are domesticated birds raised globally for their nutrient-rich eggs and meat.",
-    href : "/chicken"
-  },
-  {
-    name : "Rooster",
-    Info : "Roosters are male chickens characterized by their colorful plumage, proud stance, and distinctive early morning crowing.",
-    href : "/rooster"
-  }
-]
+
 
 function Diseases() {
   const outlet = useOutlet();

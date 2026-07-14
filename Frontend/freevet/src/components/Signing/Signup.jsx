@@ -18,6 +18,8 @@ import { useDispatch } from "react-redux";
 import { signup } from "@/services/Slice";
 
 
+import { signUpUser } from "@/lib/auth";
+
 const DEMO_API_URL = "https://jsonplaceholder.typicode.com/posts";
 
 function Signimage() {
@@ -42,23 +44,14 @@ function Signupform() {
     setLoading(true)
     setError(null)
 
-    
-    const payload = { email, password }
-
     try {
-      const response = await fetch(DEMO_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      const success = response.ok
+      const { data, error } = await signUpUser(email, password)
 
-      if (success) {
-        
-        dispatch(signup({ userData: { email } }))
-        navigate("/")
+      if (error) {
+        setError(error.message)
       } else {
-        setError("Signup failed. Please try again.")
+        dispatch(signup({ userData: { email } }))
+        navigate("/profile")
       }
     } catch (err) {
       setError("Network error. Please check your connection.")

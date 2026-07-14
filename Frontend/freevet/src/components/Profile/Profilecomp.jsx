@@ -7,7 +7,6 @@ import { getProfile, getUserBookmarks, getUserLikes, getUserSearches } from '@/l
 function Profilecomp() {
   const [isedit, setIsedit] = useState(false)
 
-  // Profile data from Supabase
   const [profileData, setProfileData] = useState(null)
   const [bookmarks, setBookmarks] = useState([])
   const [likes, setLikes] = useState([])

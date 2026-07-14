@@ -17,6 +17,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "@/services/Slice";
 
+import { loginUser } from "@/lib/auth";
+
 const DEMO_API_URL = "https://jsonplaceholder.typicode.com/posts";
 
 function Loginimage() {
@@ -41,21 +43,14 @@ function Loginform() {
     setLoading(true)
     setError(null)
 
-    const payload = { email, password }
-
     try {
-      const response = await fetch(DEMO_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
-      const success = response.ok
+      const { data, error } = await loginUser(email, password)
 
-      if (success) {
-        dispatch(login({ userData: { email } }))
-        navigate("/")
+      if (error) {
+        setError(error.message)
       } else {
-        setError("Login failed. Please check your credentials.")
+        dispatch(login({ userData: { email } }))
+        navigate("/profile")
       }
     } catch (err) {
       setError("Network error. Please check your connection.")
