@@ -194,7 +194,7 @@ export async function clearSearchHistory(userId) {
 
 
 export async function submitFeedback({ name, email, feedbackType, message, userId }) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('feedback')
     .insert({
       user_id: userId || null,
@@ -203,9 +203,8 @@ export async function submitFeedback({ name, email, feedbackType, message, userI
       feedback_type: feedbackType || 'Feature',
       message,
     })
-    .select()
 
-  return { data, error }
+  return { error }
 }
 
 export async function getSymptomQuestions() {
@@ -218,4 +217,13 @@ export async function getSymptomQuestions() {
     .order('order_index')
 
   return { data, error }
+}
+
+export async function getfeedbackoptions(){
+  const {data , error } = await supabase
+  .from('Feedbackoptions')
+  .select('*')
+  .order('created_at' , {ascending : false})
+
+  return {data ,error}
 }

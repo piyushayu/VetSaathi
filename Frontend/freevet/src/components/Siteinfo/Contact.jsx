@@ -1,36 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import { X, Send } from 'lucide-react'
 import Aftersubmit from './Aftersubmit'
+import { supabase } from '@/lib/supabase'
+import { getfeedbackoptions, submitFeedback } from '@/lib/database'
 
 function Contact({open , closefunction}) {
   const [name , setName] = useState('')
   const [email , setEmail] = useState('')
   const [feedback , setFeedback] = useState('Feature')
+  const [feedbackopt , setFeedbackopt] = useState([])
   const [suggestion , setSuggestion] = useState('')
-  const [allfeedback , setAllfeedback] = useState(null)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const feedbackOptions = [
-    { value: "Feature", label: "Feature Request" },
-    { value: "Bug", label: "Report a Bug" },
-    { value: "Content", label: "Medical Content Correction" },
-    { value: "Other", label: "Other" }
-  ]
-
   useEffect(() => {
-    if (!open) {
+    async function fetchOptions() {
+      const { data, error } = await getfeedbackoptions()
+      if (data) {
+        setFeedbackopt(data)
+      } else if (error) {
+        return error
+      }
+    }
+
+    if (open) {
+      fetchOptions()
+    }
+
+     if (!open) {
       setIsSubmitted(false)
     }
   }, [open])
 
-  function submit (e){
+
+  async function submit (e){
     e.preventDefault()
-    setAllfeedback({
-      name, 
+
+    const { error } = await submitFeedback({
+      name,
       email,
-      feedback,
-      suggestion
+      feedbackType: feedback,
+      message: suggestion,
+      userId: null
     })
+    if (error) {
+      console.error('submitFeedback error:', error)
+      return
+    }
     setName('')
     setEmail('')
     setFeedback('Feature')
@@ -92,18 +107,18 @@ function Contact({open , closefunction}) {
                 <div className="flex flex-col gap-1.5">
                   <label className="text-xs text-neutral-400 font-semibold">Feedback Type</label>
                   <div className="grid grid-cols-2 gap-2">
-                    {feedbackOptions.map((option) => (
+                    {feedbackopt.map((option) => (
                       <button
-                        key={option.value}
+                        key={option.label}
                         type="button"
-                        onClick={() => setFeedback(option.value)}
+                        onClick={() => setFeedback(option.label)}
                         className={`px-3 py-2.5 rounded-xl border text-xs font-medium transition-all cursor-pointer text-center ${
-                          feedback === option.value
+                          feedback === option.label
                             ? 'bg-violet-600 border-violet-500 text-white shadow-md shadow-violet-900/20'
                             : 'bg-neutral-950/60 border-neutral-850 text-neutral-400 hover:text-neutral-200 hover:border-neutral-755'
                         }`}
                       >
-                        {option.label}
+                        {option.textvalue}
                       </button>
                     ))}
                   </div>
