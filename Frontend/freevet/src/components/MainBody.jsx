@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Button from './Button';
 import { ArrowRightIcon } from 'lucide-react';
-import { data, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { getDiseaseByName, getAnimalByName, storequery } from '@/lib/database';
 
 
 function MainBody() {
@@ -10,22 +11,38 @@ function MainBody() {
   const [error, setError] = useState('');
   const navigate = useNavigate()
 
-  const handleSearch = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if(!searchQuery.trim())return
-    setLoading(true)
-    setError("")
+    if (!searchQuery.trim()) return;
+    setLoading(true);
+    setError("");
 
-    //await data fetch from backend api
+    const [diseaseResult, animalResult] = await Promise.all([
+      getDiseaseByName(searchQuery),
+      getAnimalByName(searchQuery)
+    ]);
 
-    setLoading(false)
-    if(animaldata.found){
-     navigate(`/diseases/${animaldata.animal}/explain/${encodeURIComponent(animaldata.name)}`)
-    }else{
-      setError("disease not found , try symptoms test")
+    setLoading(false);
+
+    if (diseaseResult.data) {
+      storequery(null, searchQuery);
+      const animalName = diseaseResult.data.animals?.name;
+      const diseaseName = diseaseResult.data.name;
+
+      if (!animalName) {
+        setError("Could not determine animal type. Try the symptom checker.");
+        return;
+      }
+      navigate(`/diseases/${encodeURIComponent(animalName)}/explain/${encodeURIComponent(diseaseName)}`);
+
+    } else if (animalResult.data) {
+      storequery(null, searchQuery);
+      const animalName = animalResult.data.name;
+      navigate(`/diseases/${encodeURIComponent(animalName)}`);
+
+    } else {
+      setError("Disease not found. Try the symptom checker instead.");
     }
-    
-    
   };
 
   return (

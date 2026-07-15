@@ -77,7 +77,7 @@ export async function getDiseaseByName(diseaseName) {
     .from('diseases')
     .select(`
       *,
-      medicines ( * )
+      medicines ( * ),
     `)
     .ilike('name', diseaseName)
     .single()
@@ -98,6 +98,19 @@ export async function searchDiseases(query) {
   return { data, error }
 }
 //
+
+export async function storequery(userId, query) {
+  const { error } = await supabase
+    .from('searches')
+    .insert({
+      user_id: userId || null,
+      query: query
+    })
+
+  return { error }
+}
+
+
 
 export async function addBookmark(userId, diseaseId) {
   const { data, error } = await supabase
