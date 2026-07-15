@@ -24,7 +24,6 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
   const [error, setError] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
-  // Sync form fields with currentProfile whenever the modal opens
   useEffect(() => {
     if (edit && currentProfile) {
       setName(currentProfile.name || "");
@@ -39,7 +38,6 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
     setLoading(true);
     setError(null);
 
-    // ── Supabase UPDATE call ──
     const { data, error: updateError } = await updateProfile(userId, {
       name,
       location,
@@ -52,12 +50,10 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
       return;
     }
 
-    // Success — close modal and show toast
     setLoading(false);
     setShowSuccess(true);
     setTimeout(() => setShowSuccess(false), 2000);
 
-    // Notify parent to refresh profile data
     if (onSaveSuccess) onSaveSuccess();
   };
 

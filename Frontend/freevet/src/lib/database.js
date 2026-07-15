@@ -72,15 +72,16 @@ export async function getDiseasesByAnimal(animalName) {
   return { data, error }
 }
 
-export async function getDiseaseByName(diseaseName) {
+export async function getDiseaseByName(diseaseName, animalName) {
   const { data, error } = await supabase
     .from('diseases')
     .select(`
       *,
       medicines ( * ),
-      animals ( name )
+      animals!inner ( name )
     `)
     .ilike('name', diseaseName)
+    .ilike('animals.name', animalName)
     .single()
 
   return { data, error }

@@ -40,8 +40,8 @@ function Wideinfo({
         
         <div className='flex flex-col gap-3.5 pl-1'>
         {
-            overview.map((point) => (
-                <li key={point.id} className='ml-5'>{point.text}</li>
+            overview.map((point , index) => (
+                <li key={index} className='ml-5'>{point}</li>
             ))
         }
         </div>
@@ -55,8 +55,8 @@ function Wideinfo({
         
         <div className='flex flex-wrap gap-2.5'>
         {
-            symptoms.map((med) => (
-                <li key={med.id} className='h-8 w-26 ml-6 flex justify-center items-center bg-neutral-700 rounded-full'>{med.text}</li>
+            symptoms.map((med , index) => (
+                <li key={index} className='h-8 w-26 ml-6 flex justify-center items-center bg-neutral-700 rounded-full'>{med}</li>
             ))
         }
         </div>
@@ -75,8 +75,8 @@ function Wideinfo({
             <div key={med.id} className='bg-neutral-950/50 border border-neutral-800/60 rounded-xl p-4 flex flex-col gap-2'>
               <div className='text-sm font-semibold text-neutral-200'>{med.name}</div>
               <ul className='list-disc pl-4 text-xs text-neutral-400 flex flex-col gap-1.5'>
-                {(med.sideeffect).map((effect) => (
-                  <li key={effect.id}>{effect.text}</li>
+                {(med.side_effects).map((effect) => (
+                  <li key={effect}>{effect}</li>
                 ))}
               </ul>
             </div>
@@ -95,7 +95,7 @@ function Wideinfo({
         <div className='flex flex-col gap-3.5 pl-1'>
         {
             treatment.map((treat) => (
-                <li key={treat.id} className='ml-6 '>{treat.text}</li>
+                <li key={treat} className='ml-6 '>{treat}</li>
             ))
         }
         </div>

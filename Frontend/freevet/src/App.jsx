@@ -36,7 +36,7 @@ import Profilecomp from './components/Profile/Profilecomp';
 //     </div>
 //   )
 // }
-
+ 
 
 
 // function App() {

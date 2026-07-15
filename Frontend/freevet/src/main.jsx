@@ -25,7 +25,9 @@ const Router = createBrowserRouter(
     <Route path='contact' element={<Info/>}/>
     <Route path='diseases' element={<Diseases/>}>
     <Route path=':animaltype' element={<Problems/>}>
-    <Route path='explain/:diseaseId'element={<Explain/>}/>
+    {/* <Route path='explain/:diseaseId'element={<Explain/>}/> */}
+    <Route path='explain/:diseasename'element={<Explain/>}/>
+
     </Route>
     </Route>
     <Route path='symptoms' element={<Symcheck/>}/>
