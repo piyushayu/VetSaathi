@@ -72,6 +72,19 @@ export async function getDiseasesByAnimal(animalName) {
   return { data, error }
 }
 
+export async function getDiseasesWithSymptomsByAnimal(animalName) {
+  const { data, error } = await supabase
+    .from('diseases')
+    .select(`
+      id, name, context,
+      symptoms,
+      animals!inner ( name )
+    `)
+    .ilike('animals.name', animalName)
+
+  return { data, error }
+}
+
 export async function getDiseaseByName(diseaseName, animalName) {
   const { data, error } = await supabase
     .from('diseases')

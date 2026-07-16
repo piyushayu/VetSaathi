@@ -19,8 +19,6 @@ import { login } from "@/services/Slice";
 
 import { loginUser } from "@/lib/auth";
 
-const DEMO_API_URL = "https://jsonplaceholder.typicode.com/posts";
-
 function Loginimage() {
   return (
     <div className=" hidden md:flex  items-center justify-center bg-purple-500 h-full">
