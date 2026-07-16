@@ -1,75 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { Link } from 'react-router-dom'
-
-const QUESTIONS_DATA = [
-  {
-    question: "What primary symptoms is your animal companion displaying?",
-    options: [
-      { key: "A", text: "Extreme tiredness, lethargy, or weakness" },
-      { key: "B", text: "Frequent coughing, wheezing, or nasal discharge" },
-      { key: "C", text: "Persistent vomiting, diarrhea, or refusal to eat" },
-      { key: "D", text: "Limping, stiffness, or visible pain when moving" }
-    ]
-  },
-  {
-    question: "How long have these symptoms been present?",
-    options: [
-      { key: "A", text: "Just started today (under 24 hours)" },
-      { key: "B", text: "Between 1 to 3 days" },
-      { key: "C", text: "Around 4 to 7 days" },
-      { key: "D", text: "Longer than a week" }
-    ]
-  },
-  {
-    question: "Is there any other noticeable change in behavior?",
-    options: [
-      { key: "A", text: "High body temperature / fever" },
-      { key: "B", text: "Constant scratching, skin redness, or hair loss" },
-      { key: "C", text: "Unusual aggression, confusion, or vocalization" },
-      { key: "D", text: "No other behavioral changes noticed" }
-    ]
-  }
-]
-
-const RESULTS_DATA = [
-  {
-    name: "Parvovirus Infection",
-    image: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=300&auto=format&fit=crop&q=60",
-    link: "/diseases/parvo",
-    desc: "A highly contagious viral disease of dogs that commonly causes acute gastrointestinal illness."
-  },
-  {
-    name: "Canine Influenza (Flu)",
-    image: "https://images.unsplash.com/photo-1537151608828-ea2b117b6297?w=300&auto=format&fit=crop&q=60",
-    link: "/diseases/canine-flu",
-    desc: "A contagious respiratory infection in dogs caused by specific type A influenza viruses."
-  },
-  {
-    name: "Osteoarthritis",
-    image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=300&auto=format&fit=crop&q=60",
-    link: "/diseases/arthritis",
-    desc: "A degenerative joint disease that causes pain, loss of joint mobility, and inflammation."
-  }
-]
-
-const Newquestions = QUESTIONS_DATA.map((questn) => (
-  { ...questn, id: nanoid(), options: questn.options.map((text) => ({ text, id: nanoid() })) }
-))
-
-const NewResult = RESULTS_DATA.map((result) => (
-  { ...result, id: nanoid() }
-))
+import { getSymptomQuestions } from '@/lib/database'
 
 
-function QuizForm({ currentIndex, allanswer, onSelectOption, onNext, onPrevious }) {
-
+function QuizForm({ currentIndex, allanswer, onSelectOption, onNext, onPrevious , optiondata }) {
   
-  const currentQuestion = Newquestions[currentIndex]
-  const totalQuestions = Newquestions.length
+  const totalQuestions = optiondata.length
   const isAnswered = allanswer[currentIndex] !== undefined
   const isLastQuestion = currentIndex === totalQuestions - 1
-
+ 
   return (
     <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8 flex flex-col gap-6">
 
@@ -84,17 +24,17 @@ function QuizForm({ currentIndex, allanswer, onSelectOption, onNext, onPrevious 
 
       <div className="bg-neutral-950/60 border border-neutral-800/80 rounded-xl p-5 min-h-[90px] flex items-center">
         <h2 className="text-base md:text-lg font-medium text-neutral-100 leading-relaxed">
-          {currentQuestion.question}
+          {optiondata[currentIndex].question}
         </h2>
       </div>
 
       <div className="flex flex-col gap-3">
-        {currentQuestion.options.map((option) => {
-          const isSelected = allanswer[currentIndex] === option.text.key
+        {optiondata[currentIndex].symptom_options.map((option) => {
+          const isSelected = allanswer[currentIndex] === option.key
           return (
             <button
-              key={option.text.key}
-              onClick={() => onSelectOption(option.text.key)}
+              key={option.key}
+              onClick={() => onSelectOption(option.key)}
               className={`w-full flex items-center gap-4 px-5 py-4 rounded-xl border text-left text-sm transition-all duration-300 cursor-pointer ${
                 isSelected
                   ? "bg-white text-neutral-950 font-semibold border-white shadow-lg"
@@ -106,9 +46,9 @@ function QuizForm({ currentIndex, allanswer, onSelectOption, onNext, onPrevious 
                   ? "bg-neutral-950 text-white border-neutral-950"
                   : "bg-neutral-800/50 text-neutral-400 border-neutral-700"
               }`}>
-                {option.text.key}
+                {option.key}
               </div>
-              <span>{option.text.text}</span>
+              <span>{option.text}</span>
             </button>
           )
         })}
@@ -176,6 +116,6 @@ function ResultSection({ onReset }) {
   )
 }
 
- export { Newquestions, QuizForm, ResultSection }
+ export { QuizForm, ResultSection }
 
 
