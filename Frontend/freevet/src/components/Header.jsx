@@ -116,8 +116,8 @@ function Header({
         </div>
       ) : (
         <div className="flex items-center gap-3">
-          <Link to="/login"><Button variant="outline">Login</Button></Link>
-          <Link to="/signup"><Button variant="primary">Signup</Button></Link>
+          <Link to="/login"><Button variant="outline" className="bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30">Login</Button></Link>
+          <Link to="/signup"><Button variant="primary" className="bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30">Signup</Button></Link>
         </div>
       )}
     </header>

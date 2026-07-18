@@ -49,97 +49,64 @@ function MainBody() {
   };
 
   return (
-    <main className="w-full grid grid-cols-1 mt-4 lg:grid-cols-12 gap-8 ">
+    <main className="w-full flex flex-col items-center justify-center mt-2 md:mt-4 gap-8 text-center max-w-4xl mx-auto px-4">
       
-      <div className="lg:col-span-5 flex flex-col gap-9 justify-between">
-        
-        {/* Moto Card */}
-        <div className="flex-1 flex flex-col gap-3 justify-center text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-semibold mb-4 w-fit">
-            🐾 Virtual Pet Consultation
+      <HoverBorderGradient
+        containerClassName="rounded-full"
+        as="div"
+        className="dark:bg-black bg-white text-white dark:text-white flex items-center space-x-2 px-4 py-1 text-sm font-semibold"
+      >
+        <span>🐾 Virtual Pet Consultation</span>
+      </HoverBorderGradient>
+
+      <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight tracking-tight mt-2">
+        Your Virtual Companion for <br />
+        <span className="text-neutral-400">
+          Animal Health
+        </span>{' '}
+        <span className="text-neutral-400">and Consultation</span>
+      </h1>
+      
+      <div className="max-w-2xl mx-auto text-neutral-400 text-lg md:text-xl">
+        <TextGenerateEffect words={words} className={`font-light`} />
+      </div>
+
+      <div className="w-full max-w-xl mx-auto mt-6">
+        <form 
+          onSubmit={handleSearch}
+          className="flex items-center gap-3 p-2 bg-neutral-900/40 border border-white/10 rounded-2xl shadow-md transition-all duration-300 backdrop-blur-md"
+        >
+          <div className="flex-1 flex items-center pl-3 gap-2">
+            <Search className="text-neutral-400 w-5 h-5" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => { setSearchQuery(e.target.value); if(error) setError(''); }}
+              placeholder="Search symptoms, diseases, or vets..."
+              className="w-full bg-transparent border-none text-white text-base focus:outline-none placeholder-neutral-500"
+            />
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight tracking-tight">
-            Your Virtual Companion for{' '}
-            <span className="bg-clip-text text-transparent bg-linear-to-r from-violet-400 via-indigo-300 to-purple-400">
-              Animal Health
-            </span>{' '}
-            and Consultation
-          </h1>
-        </div>
-        <TextGenerateEffect words={words} />
-        <div className="flex flex-col gap-2">
-          <form 
-            onSubmit={handleSearch}
-            className="flex items-center gap-3 p-2 bg-neutral-900/40 border border-white/10 rounded-2xl shadow-md focus-within:border-violet-500/50 transition-all duration-300 backdrop-blur-md"
+          <HoverBorderGradient
+            containerClassName="rounded-full"
+            as="button"
+            type="submit"
+            className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 px-6 py-2"
           >
-            <div className="flex-1 flex items-center pl-3 gap-2">
-             <Search className="text-neutral-400 w-5 h-5" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); if(error) setError(''); }}
-                placeholder="Search symptoms, diseases, or vets..."
-                className="w-full bg-transparent border-none text-white text-sm focus:outline-none placeholder-neutral-500"
-              />
-            </div>
-            <HoverBorderGradient
-              containerClassName="rounded-full"
-              as="button"
-              type="submit"
-              className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2"
-            >
-              <span>Search</span>
-              <ArrowRightIcon className="w-4 h-4" />
-            </HoverBorderGradient>
-          </form>
-          {error && (
-            <div
-              role="alert"
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
-              style={{ animation: 'fadeInDown 0.25s ease-out' }}
-            >
-              <span>{error}</span>
-            </div>
-          )}
-        </div>
-
-      </div>
-
-      <div className="lg:col-span-7 flex">
-        <div className="w-full min-h-[400px] lg:min-h-full rounded-2xl bg-neutral-950/30 border-2 border-dashed border-white/10 hover:border-violet-500/30 backdrop-blur-sm flex flex-col items-center justify-center p-8 transition-all duration-300 relative group overflow-hidden">
-          
-         
-          <div className="absolute w-72 h-72 rounded-full bg-violet-600/10 blur-[80px] -z-10 group-hover:bg-violet-600/15 transition-all duration-300" />
-          
-       
-          <div className="flex flex-col items-center text-center gap-4 max-w-sm">
-            <div className="w-16 h-16 rounded-2xl bg-neutral-900 border border-white/10 flex items-center justify-center text-neutral-400 group-hover:scale-110 group-hover:text-white transition-all duration-300 shadow-xl">
-              <svg
-                className="w-8 h-8"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
-            <div>
-              <h3 className="font-semibold text-white text-lg mb-1">
-                Veterinary Animal Showcase
-              </h3>
-              <p className="text-neutral-500 text-sm leading-relaxed">
-                [Space reserved for the Hero illustration featuring all 10 animals]
-              </p>
-            </div>
+            <span>Search</span>
+            <ArrowRightIcon className="w-4 h-4" />
+          </HoverBorderGradient>
+        </form>
+        {error && (
+          <div
+            role="alert"
+            className="flex items-center justify-center gap-2 px-4 py-3 mt-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm w-fit mx-auto"
+            style={{ animation: 'fadeInDown 0.25s ease-out' }}
+          >
+            <span>{error}</span>
           </div>
-        </div>
+        )}
       </div>
+
     </main>
   );
 }

@@ -5,12 +5,11 @@ import {
   Sparkles,
   BookOpen,
   Mail,
-  MessageSquare,
-  Send,
-  X,
+  MessageSquare
 } from 'lucide-react';
 import Button from '../Button';
 import { Link } from 'react-router-dom';
+import { HoverEffect } from '../ui/card-hover-effect';
 
 function About({openform , open}) {
   const socialLinks = [

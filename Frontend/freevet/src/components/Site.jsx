@@ -25,7 +25,19 @@ function Site() {
   }, [dispatch])
 
   return (
-    <div className="relative min-h-screen bg-neutral-950 text-neutral-100 font-sans selection:bg-violet-500/30 overflow-hidden flex flex-col items-center p-4 md:p-8">
+    <div className="relative min-h-screen w-full bg-black text-neutral-100 font-sans selection:bg-violet-500/30 overflow-hidden flex flex-col items-center p-4 md:p-8">
+      {/* Dark White Dotted Grid Background */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          background: "#000000",
+          backgroundImage: `
+            radial-gradient(circle, rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px)
+          `,
+          backgroundSize: "30px 30px",
+          backgroundPosition: "0 0",
+        }}
+      />
       <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 md:gap-12 relative z-10">
         <Header />
         <Outlet />
