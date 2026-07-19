@@ -10,6 +10,7 @@ import Diseases from './components/Diseases/Diseases'
 import Symcheck from './components/Symptomcheck/Symcheck'
 import Signcomponent from './components/Signing/Signup'
 import Logincomponent from './components/Signing/Loginup'
+import ResetPassword from './components/Signing/ResetPassword'
 import Explain from './components/Explain/Explain'
 import Problems from './components/Allproblems/Problems'
 import { Provider } from 'react-redux'
@@ -25,12 +26,13 @@ const Router = createBrowserRouter(
     <Route path='contact' element={<Info/>}/>
     <Route path='diseases' element={<Diseases/>}>
     <Route path=':animaltype' element={<Problems/>}>
-    <Route path='explain/:diseasename'element={<Explain/>}/>
+    <Route path='explain/:diseaseid'element={<Explain/>}/>
     </Route>
     </Route>
     <Route path='symptoms' element={<Symcheck/>}/>
     <Route path='signup' element={<Signcomponent/>}/>
     <Route path='login' element={<Logincomponent/>}/>
+    <Route path='reset-password' element={<ResetPassword/>}/>
     <Route path='profile' element={<Profilecomp/>}/>
     
     </Route>

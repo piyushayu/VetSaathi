@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from './Header'
+import { StickyBanner } from '@/components/ui/sticky-banner'
 import { useDispatch } from 'react-redux'
 import { login, logout } from '@/services/Slice'
 import { onAuthChange } from '@/lib/auth'
@@ -38,7 +39,12 @@ function Site() {
           backgroundPosition: "0 0",
         }}
       />
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 md:gap-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 relative z-10">
+        <StickyBanner className="bg-linear-to-r from-red-600/90 to-amber-600/90 rounded-xl border border-red-500/20 shadow-md">
+          <p className="mx-0 max-w-[90%] text-white font-medium drop-shadow-md text-sm text-center">
+            ⚠️ <strong>Disclaimer:</strong> This website is for educational purposes only. Always consult a licensed veterinarian before diagnosing or treating animals.
+          </p>
+        </StickyBanner>
         <Header />
         <Outlet />
       </div>

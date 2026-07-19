@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { logoutUser } from '@/lib/auth';
 import { getProfile } from '@/lib/database';
 import AnimatedBtn1 from './mvpblocks/animated-btn1';
+import { User } from 'lucide-react';
 
 function Header({
   className = ""
@@ -113,9 +114,7 @@ function Header({
               {profile?.avatar_url ? (
                 <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-white text-xs font-bold">
-                  {profile?.name ? profile.name.trim().split(/\s+/).map((w) => w[0]).join('').toUpperCase() : 'P'}
-                </span>
+                <User className="w-5 h-5 text-neutral-350" />
               )}
             </button>
             
