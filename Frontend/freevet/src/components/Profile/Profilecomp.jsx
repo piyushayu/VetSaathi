@@ -109,6 +109,7 @@ function Profilecomp() {
   async function onSaveSuccess() {
     setIsedit(false)
     await refreshProfile()
+    window.dispatchEvent(new Event('profile-updated'))
   }
 
   if (loading) {

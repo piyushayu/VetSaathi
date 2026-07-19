@@ -30,10 +30,18 @@ function Profile({
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-lg">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-blue-900/50 border border-blue-700/30 flex items-center justify-center text-xl font-bold text-blue-400 select-none">
-            {initials}
-          </div>
-          <div className="flex flex-col">
+          {user.avatar_url ? (
+            <img
+              src={user.avatar_url}
+              alt={user.name || 'User'}
+              className="w-16 h-16 rounded-full object-cover border border-blue-700/30 select-none"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-full bg-blue-900/50 border border-blue-700/30 flex items-center justify-center text-xl font-bold text-blue-400 select-none">
+              {initials}
+            </div>
+          )}
+          <div className="flex flex-col text-left">
             <h1 className="text-xl font-bold text-neutral-100">{user.name || 'User'}</h1>
             <p className="text-sm text-neutral-400">
               {user.member_since ? `Member since ${user.member_since}` : ''}

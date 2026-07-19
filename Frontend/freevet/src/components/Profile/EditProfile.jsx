@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { updateProfile } from '@/lib/database';
+import { uploadToSupabase } from '../../../utils/Filestore';
 
 function SuccessToast({ visible }) {
   return (
@@ -20,7 +21,9 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [memberSince, setMemberSince] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [error, setError] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -29,9 +32,27 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
       setName(currentProfile.name || "");
       setLocation(currentProfile.location || "");
       setMemberSince(currentProfile.member_since || "");
+      setAvatarUrl(currentProfile.avatar_url || "");
       setError(null);
     }
   }, [edit, currentProfile]);
+
+  const handleAvatarChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError(null);
+
+    const publicUrl = await uploadToSupabase(file, "Images");
+    setUploading(false);
+
+    if (publicUrl) {
+      setAvatarUrl(publicUrl);
+    } else {
+      setError("Failed to upload profile picture.");
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,6 +63,7 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
       name,
       location,
       memberSince,
+      avatarUrl,
     });
 
     if (updateError) {
@@ -59,6 +81,15 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
 
   if (!edit && !showSuccess) return <SuccessToast visible={false} />;
 
+  const getInitials = () => {
+    if (!name) return 'U';
+    return name
+      .trim()
+      .split(/\s+/)
+      .join('')
+      .toUpperCase();
+  };
+
   return (
     <>
       <SuccessToast visible={showSuccess} />
@@ -70,6 +101,30 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
              
+              {/* Profile Photo Upload Section */}
+              <div className="flex items-center gap-4 p-4 bg-neutral-950/40 border border-neutral-800/60 rounded-xl">
+                <div className="w-16 h-16 rounded-full bg-blue-900/50 border border-blue-700/30 flex items-center justify-center text-xl font-bold text-blue-400 select-none overflow-hidden">
+                  {avatarUrl ? (
+                    <img src={avatarUrl} alt="Preview" className="w-full h-full object-cover" />
+                  ) : (
+                    getInitials()
+                  )}
+                </div>
+                <div className="flex flex-col gap-1.5 text-left">
+                  <span className="text-sm font-medium text-neutral-400">Profile Picture</span>
+                  <label className="cursor-pointer bg-neutral-800 hover:bg-neutral-700 border border-neutral-700 hover:border-neutral-600 text-neutral-200 text-xs font-semibold px-4 py-2 rounded-lg transition active:scale-95 text-center select-none">
+                    {uploading ? "Uploading..." : "Upload New Photo"}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarChange}
+                      disabled={uploading}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-2">
                 <label htmlFor="profile-name" className="text-sm font-medium text-neutral-400">
                   Full Name

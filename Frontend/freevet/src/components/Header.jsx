@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useSelector } from 'react-redux';
 import { logoutUser } from '@/lib/auth';
+import { getProfile } from '@/lib/database';
+import AnimatedBtn1 from './mvpblocks/animated-btn1';
 
 function Header({
   className = ""
@@ -29,6 +31,25 @@ function Header({
   ];
 
   const isloggedIn = useSelector((state) => state.auth.status);
+  const userId = useSelector((state) => state.auth.userData?.id);
+  const [profile, setProfile] = useState(null);
+
+  useEffect(() => {
+    if (!userId) {
+      setProfile(null);
+      return;
+    }
+    async function fetchProfile() {
+      const { data } = await getProfile(userId);
+      if (data) setProfile(data);
+    }
+    fetchProfile();
+
+    window.addEventListener('profile-updated', fetchProfile);
+    return () => {
+      window.removeEventListener('profile-updated', fetchProfile);
+    };
+  }, [userId]);
 // second tough code for me to understand
   useEffect(() => {
     function handleClickOutside(event) {
@@ -56,17 +77,20 @@ function Header({
       mergedClassName
     )} >
     
-      <Link to="/" className="flex items-center justify-center gap-3 group cursor-pointer decoration-transparent">
-        <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg group-hover:scale-105">
-          <svg className="w-5 h-5 text-white" />
-        </div>
+      <div className="flex-1 flex justify-start">
+        <Link to="/" className="flex items-center justify-center  group cursor-pointer decoration-transparent">
+          <img 
+            src="https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/ChatGPT%20Image%20Jul%2018,%202026,%2006_35_45%20PM.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81YjIyZDEwYS03NDI0LTRiZWQtYTBkOS1hNzkxMDE2YWQwNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvQ2hhdEdQVCBJbWFnZSBKdWwgMTgsIDIwMjYsIDA2XzM1XzQ1IFBNLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODQ0NDAyNDYsImV4cCI6MTgxNTk3NjI0Nn0.BAtLvvUrxWXVAu5HspWg7QTOqQjytkkMZLBM-bEla6Q" 
+            alt="Freevet Logo" 
+            className="w-16 h-10 object-contain opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+          />
+          <span className="font-bold text-lg tracking-wide text-neutral-250 bg-clip-text hover:text-white transition-all duration-300">
+            Freevet
+          </span>
+        </Link>
+      </div>
 
-        <span className="font-bold text-lg tracking-wide text-white bg-clip-text hover:text-transparent hover:bg-linear-to-r hover:from-white hover:to-neutral-400 transition-all duration-300">
-          Freevet
-        </span>
-      </Link>
-
-      <nav className="hidden md:flex items-center gap-6 bg-neutral-950/40 p-1.5 rounded-xl border border-white/5">
+      <nav className="hidden md:flex items-center gap-10 bg-neutral-950/40 p-1.5 rounded-xl border border-white/5">
         {navItems.map((item) => (
           <Link
             key={item.title}
@@ -78,50 +102,63 @@ function Header({
         ))}
       </nav>
 
-      {isloggedIn ? (
-        <div className="relative" ref={dropdownRef}>
-          <button 
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="w-9 h-9 rounded-full bg-purple-500 flex items-center justify-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-purple-500/55 transition-all active:scale-95"
-            aria-label="User Menu"
-          >
-            <span className="text-white text-xs font-bold">P</span>
-          </button>
-          
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 w-44 bg-neutral-900 border border-neutral-800 rounded-xl shadow-xl z-50 py-1.5 flex flex-col">
-              <Link 
-                to="/profile" 
-                onClick={() => setDropdownOpen(false)}
-                className="px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white transition text-left"
-              >
-                Profile
-              </Link>
-              <Link 
-                to="/contact" 
-                onClick={() => setDropdownOpen(false)}
-                className="px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white transition text-left"
-              >
-                Contact
-              </Link>
-              <hr className="border-neutral-800 my-1"/>
-              <button 
-                onClick={handleLogout}
-                className="px-4 py-2 text-sm text-red-400 hover:bg-neutral-850 hover:text-red-300 text-left transition w-full cursor-pointer font-medium"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+      <div className="flex-1 flex justify-end">
+        {isloggedIn ? (
+          <div className="relative" ref={dropdownRef}>
+            <button 
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="w-9 h-9 rounded-full bg-neutral-800/40 border border-white/10 flex items-center justify-center cursor-pointer focus:outline-none transition-all active:scale-95 overflow-hidden"
+              aria-label="User Menu"
+            >
+              {profile?.avatar_url ? (
+                <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <span className="text-white text-xs font-bold">
+                  {profile?.name ? profile.name.trim().split(/\s+/).map((w) => w[0]).join('').toUpperCase() : 'P'}
+                </span>
+              )}
+            </button>
+            
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-44 bg-neutral-900 border border-neutral-800 rounded-xl shadow-xl z-50 py-1.5 flex flex-col">
+                <Link 
+                  to="/profile" 
+                  onClick={() => setDropdownOpen(false)}
+                  className="px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white transition text-left"
+                >
+                  Profile
+                </Link>
+                <Link 
+                  to="/contact" 
+                  onClick={() => setDropdownOpen(false)}
+                  className="px-4 py-2 text-sm text-neutral-300 hover:bg-neutral-800 hover:text-white transition text-left"
+                >
+                  Contact
+                </Link>
+                <hr className="border-neutral-800 my-1"/>
+                <button 
+                  onClick={handleLogout}
+                  className="px-4 py-2 text-sm text-red-400 hover:bg-neutral-850 hover:text-red-300 text-left transition w-full cursor-pointer font-medium"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-3">
+          <Link to="/login">
+            <AnimatedBtn1 text="Login" variant="transparent" />
+          </Link>
+          <Link to="/signup">
+            <AnimatedBtn1 text="Signup" variant="solid" />
+          </Link>
         </div>
-      ) : (
-        <div className="flex items-center gap-3">
-          <Link to="/login"><Button variant="outline" className="bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30">Login</Button></Link>
-          <Link to="/signup"><Button variant="primary" className="bg-teal-500/20 text-teal-300 border border-teal-500/30 hover:bg-teal-500/30">Signup</Button></Link>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }
 
 export default Header;
+{/* <Button variant="outline" className="bg-blue-500/20 text-blue-300 border border-blue-500/30 hover:bg-blue-500/30">Login</Button> */}

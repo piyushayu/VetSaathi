@@ -33,6 +33,7 @@ export async function updateProfile(userId, updates) {
       name: updates.name,
       location: updates.location,
       member_since: updates.memberSince,
+      avatar_url: updates.avatarUrl,
     })
     .eq('id', userId)
     .select()
