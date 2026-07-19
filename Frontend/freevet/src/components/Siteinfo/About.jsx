@@ -10,6 +10,7 @@ import {
 import Button from '../Button';
 import { Link } from 'react-router-dom';
 import { HoverEffect } from '../ui/card-hover-effect';
+import AnimatedBtn1 from '../mvpblocks/animated-btn1';
 
 function About({openform , open}) {
   const socialLinks = [
@@ -22,7 +23,7 @@ function About({openform , open}) {
     },
     {
       name: 'LinkedIn',
-     // icon: <Linkedin className="w-5 h-5 text-blue-400" />,
+      icon: <img src="https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screenshot%20(2323).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81YjIyZDEwYS03NDI0LTRiZWQtYTBkOS1hNzkxMDE2YWQwNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2NyZWVuc2hvdCAoMjMyMykucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NDQ0Mzg5NCwiZXhwIjoxODE1OTc5ODk0fQ.Jf3pdbBjhPpKakcYIDwfaWR56J_bqTfLJQAvzj1wFwA" className="w-full h-full object-cover scale-[1.3]" alt="LinkedIn" />,
       handle : "linkedin.freevet",
       href: 'https://linkedin.com',
       bgColor: 'hover:bg-blue-500/10',
@@ -36,7 +37,8 @@ function About({openform , open}) {
     },
     {
       name: 'Twitter',
-     // icon: <Twitter className="w-5 h-5 text-sky-400" />,
+      icon: <img src="
+https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screenshot%20(2324).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81YjIyZDEwYS03NDI0LTRiZWQtYTBkOS1hNzkxMDE2YWQwNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2NyZWVuc2hvdCAoMjMyNCkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NDQ0NDAxNSwiZXhwIjoxODE1OTgwMDE1fQ.04mPcteesvdCnHbsNi3WhUcrND9YGVGso0RZ6s29dvU" className="w-5 h-5 object-contain" alt="Twitter" />,
       handle: '@freevet_app',
       href: 'https://twitter.com',
       bgColor: 'hover:bg-sky-500/10 ',
@@ -44,12 +46,12 @@ function About({openform , open}) {
   ];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8 flex flex-col gap-8 text-neutral-300">
+    <div className="w-full max-w-7xl mx-auto px-4 py-1 flex flex-col gap-6 text-neutral-300">
       
       <div className="flex flex-col items-center text-center gap-2 mb-2 relative">
-        <div className="absolute -top-10 w-48 h-48 bg-violet-600/10 rounded-full blur-3xl" />
-        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white mt-2">
-          About <span className="bg-clip-text text-transparent bg-linear-to-r from-violet-400 to-indigo-500">Freevet</span>
+        <div className="absolute -top-10 w-48 h-48 bg-emerald-600/5 rounded-full blur-3xl" />
+        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-neutral-200 mt-2">
+          About <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-500 to-teal-500">Freevet</span>
         </h1>
         <p className="text-neutral-400 max-w-xl text-sm md:text-base leading-relaxed">
           Empowering pet parents and animal guardians with accessible, evidence-based veterinary insights.
@@ -114,7 +116,7 @@ function About({openform , open}) {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-indigo-400 font-bold">•</span>
-                      <span><strong>Support Info:</strong> Critical suggestions, vaccination guidelines, and care recommendations.</span>
+                      <span><strong>No Account Required:</strong> Use all diagnostic tools at any time without sign-up or sign-in.</span>
                     </li>
                   </ul>
                 </div>
@@ -152,17 +154,16 @@ function About({openform , open}) {
 
               </div>
 
-              <div className="mt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-linear-to-r from-violet-600/10 to-indigo-600/10 border border-violet-500/20 hover:border-violet-500/30 transition-all duration-300">
+              <div className="mt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 transition-all duration-300">
                 <div className="flex flex-col gap-1 text-center sm:text-left">
                   <h3 className="font-bold text-white text-sm">Have ideas to improve Freevet?</h3>
                   <p className="text-xs text-neutral-400">We constantly improve our services and database based on user suggestions.</p>
                 </div>
-                <Link to="/contact"><Button 
-                  Clickfunctn={openform}
-                  className="px-5 py-2.5 bg-violet-600 hover:bg-violet-500 text-white rounded-full transition-all font-semibold shadow-md active:scale-95 whitespace-nowrap cursor-pointer text-xs"
-                >
-                  Contact us here
-                </Button></Link>
+                <div className="flex-1 flex justify-center sm:justify-end">
+                  <Link to="/contact">
+                    <AnimatedBtn1 text="Contact Us" variant="transparent" onClick={openform} />
+                  </Link>
+                </div>
               </div>
 
             </div>
@@ -171,11 +172,12 @@ function About({openform , open}) {
         </div>
 
         <div className="lg:col-span-1 flex flex-col gap-4">
-          <div className="h-full p-6 rounded-3xl bg-neutral-900/40 border border-white/5 flex flex-col gap-5 hover:border-white/10 transition-all">
-            <div className="flex flex-col gap-1">
-              <h2 className="text-lg font-bold text-white tracking-wide">Social media</h2>
-              <p className="text-xs text-neutral-400">Connect with our community and creators.</p>
-            </div>
+          <div className="p-0.5 rounded-3xl bg-linear-to-b from-white/10 to-transparent h-full">
+            <div className="h-full p-6 bg-neutral-950/40 backdrop-blur-md rounded-[22px] border border-white/5 flex flex-col gap-5 hover:border-white/10 transition-all">
+              <div className="flex flex-col gap-1">
+                <h2 className="text-lg font-bold text-white tracking-wide">Social media</h2>
+                <p className="text-xs text-neutral-400">Connect with our community and creators.</p>
+              </div>
             
             <div className="flex flex-col gap-3">
               {socialLinks.map((link) => (
@@ -185,7 +187,7 @@ function About({openform , open}) {
                   className={`flex items-center justify-between p-4 rounded-2xl bg-neutral-900 border border-neutral-800 transition-all duration-300 ${link.bgColor} group`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-neutral-950 flex items-center justify-center border border-neutral-800 group-hover:scale-105 transition-transform">
+                    <div className="w-9 h-9 rounded-xl bg-neutral-950 flex items-center justify-center border border-neutral-800 group-hover:scale-105 transition-transform overflow-hidden">
                       {link.icon}
                     </div>
                     <div className="flex flex-col">
@@ -200,19 +202,30 @@ function About({openform , open}) {
                 </a>
               ))}
             </div>
-            <div className="mt-auto p-4 rounded-2xl bg-neutral-950/40 border border-neutral-800/60 text-center flex flex-col gap-2">
-              <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">Open Source</span>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Freevet is fully open-source. Help us make animal care resources better!
-              </p>
-              <a 
-                href="https://github.com" 
-                className="mt-1 inline-flex items-center justify-center gap-2 py-2 bg-neutral-850 hover:bg-neutral-800 text-xs text-neutral-200 font-semibold rounded-xl border border-neutral-700 transition-all"
-              >
-                <span>GitHub Repo</span>
-              </a>
+
+            {/* Upcoming Features Block */}
+            <div className="mt-auto p-4 rounded-[22px] bg-neutral-900/50 border border-neutral-800/60 flex flex-col gap-3.5">
+              <div className="flex items-center gap-2 pb-1.5 border-b border-neutral-800 text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Upcoming Features
+              </div>
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2 text-xs leading-relaxed text-neutral-400">
+                  <span className="text-emerald-500 font-bold">•</span>
+                  <span><strong>Veterinary Consultations:</strong> Direct channel to consult licensed vets online for live support and advice.</span>
+                </div>
+                <div className="flex gap-2 text-xs leading-relaxed text-neutral-400">
+                  <span className="text-emerald-500 font-bold">•</span>
+                  <span><strong>AI Support Chatbot:</strong> Interact with our advanced pet health AI to get fast answers and guidance regarding symptoms.</span>
+                </div>
+                <div className="flex gap-2 text-xs leading-relaxed text-neutral-400">
+                  <span className="text-emerald-500 font-bold">•</span>
+                  <span><strong>Vets Nearby:</strong> Quickly locate and find information about veterinary clinics in your nearby location.</span>
+                </div>
+              </div>
             </div>
 
+            </div>
           </div>
         </div>
 
