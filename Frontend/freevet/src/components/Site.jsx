@@ -5,9 +5,12 @@ import { StickyBanner } from '@/components/ui/sticky-banner'
 import { useDispatch } from 'react-redux'
 import { login, logout } from '@/services/Slice'
 import { onAuthChange } from '@/lib/auth'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 function Site() {
   const dispatch = useDispatch()
+  
+  useAnalytics()
 
   useEffect(() => {
     const subscription = onAuthChange((event, session) => {
