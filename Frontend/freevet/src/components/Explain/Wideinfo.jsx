@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../Button'
 import { addBookmark, addLike } from '@/lib/database'
 import { useSelector } from 'react-redux'
@@ -18,20 +18,19 @@ function Wideinfo({
   const user = useSelector((state) => state.auth.userData)
   const userId = user?.id
 
+  const [isLiked, setIsLiked] = useState(false)
+  const [isBookmarked, setIsBookmarked] = useState(false)
+
   async function onlike () { 
+    setIsLiked(!isLiked)
     if (!userId) return
-    const {error} = await addLike(userId , diseaseid)
-    if(error){
-     return error
-    }
+    await addLike(userId , diseaseid)
   }
 
   async function onbookmark () { 
+    setIsBookmarked(!isBookmarked)
     if (!userId) return
-    const {error} = await addBookmark(userId , diseaseid)
-    if(error){
-     return error
-    }
+    await addBookmark(userId , diseaseid)
   }
 
   const handleReferenceClick = () => {
@@ -66,15 +65,23 @@ function Wideinfo({
             </a>
           )}
           <Button 
-            className='h-10 bg-neutral-800 hover:bg-neutral-750 border border-neutral-700 text-neutral-200 hover:text-white transition-all duration-300 focus:ring-rose-500/30 focus:border-rose-500 focus:text-rose-455' 
-            icon={<Heart className="w-4 h-4 text-rose-500" />} 
+            className={`h-10 transition-all duration-300 active:scale-95 ${
+              isLiked 
+                ? 'bg-rose-500/20 border-rose-500/60 text-rose-300' 
+                : 'bg-neutral-800 hover:bg-neutral-750 border-neutral-700 text-neutral-200 hover:text-white'
+            }`} 
+            icon={<Heart className={`w-4 h-4 text-rose-500 ${isLiked ? 'fill-rose-500' : ''}`} />} 
             Clickfunctn={onlike}
           >
             Like
           </Button>
           <Button 
-            className='h-10 bg-neutral-800 hover:bg-neutral-750 border border-neutral-700 text-neutral-200 hover:text-white transition-all duration-300 focus:ring-amber-500/30 focus:border-amber-500 focus:text-amber-455' 
-            icon={<Bookmark className="w-4 h-4 text-amber-500" />}  
+            className={`h-10 transition-all duration-300 active:scale-95 ${
+              isBookmarked 
+                ? 'bg-amber-500/20 border-amber-500/60 text-amber-300' 
+                : 'bg-neutral-800 hover:bg-neutral-750 border-neutral-700 text-neutral-200 hover:text-white'
+            }`} 
+            icon={<Bookmark className={`w-4 h-4 text-amber-500 ${isBookmarked ? 'fill-amber-500' : ''}`} />}  
             Clickfunctn={onbookmark}
           >
             Bookmark
