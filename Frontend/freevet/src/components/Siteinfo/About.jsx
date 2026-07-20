@@ -17,15 +17,15 @@ function About({openform , open}) {
     {
       name: 'Email',
       icon: <Mail className="w-5 h-5 text-violet-400" />,
-      handle: 'contact@freevet.org',
-      href: 'mailto:contact@freevet.org',
+      handle: 'contact@vetsaathi.org',
+      href: 'mailto:contact@vetsaathi.org',
       bgColor: 'hover:bg-violet-500/10 hover:border-violet-500/30',
       borderColor: 'border-violet-500/40',
     },
     {
       name: 'LinkedIn',
       icon: <img src="https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screenshot%20(2323).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81YjIyZDEwYS03NDI0LTRiZWQtYTBkOS1hNzkxMDE2YWQwNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2NyZWVuc2hvdCAoMjMyMykucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NDQ0Mzg5NCwiZXhwIjoxODE1OTc5ODk0fQ.Jf3pdbBjhPpKakcYIDwfaWR56J_bqTfLJQAvzj1wFwA" className="w-full h-full object-cover scale-[1.3]" alt="LinkedIn" />,
-      handle : "linkedin.freevet",
+      handle : "linkedin.vetsaathi",
       href: 'https://linkedin.com',
       bgColor: 'hover:bg-blue-500/10',
       borderColor: 'border-blue-500/40',
@@ -33,7 +33,7 @@ function About({openform , open}) {
     {
       name: 'Reddit',
       icon: <MessageSquare className="w-5 h-5 text-orange-400" />,
-      handle: 'r/freevet',
+      handle: 'r/vetsaathi',
       href: 'https://reddit.com',
       bgColor: 'hover:bg-orange-500/10',
       borderColor: 'border-orange-500/40',
@@ -42,7 +42,7 @@ function About({openform , open}) {
       name: 'Twitter',
       icon: <img src="
 https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screenshot%20(2324).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81YjIyZDEwYS03NDI0LTRiZWQtYTBkOS1hNzkxMDE2YWQwNTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2NyZWVuc2hvdCAoMjMyNCkucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NDQ0NDAxNSwiZXhwIjoxODE1OTgwMDE1fQ.04mPcteesvdCnHbsNi3WhUcrND9YGVGso0RZ6s29dvU" className="w-5 h-5 object-contain" alt="Twitter" />,
-      handle: '@freevet_app',
+      handle: '@vetsaathi_app',
       href: 'https://twitter.com',
       bgColor: 'hover:bg-sky-500/10 ',
       borderColor: 'border-neutral-700',
@@ -55,7 +55,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
       <div className="flex flex-col items-center text-center gap-2 mb-2 relative">
         <div className="absolute -top-10 w-48 h-48 bg-emerald-600/5 rounded-full blur-3xl" />
         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-neutral-200 mt-2">
-          About <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-500 to-teal-500">Freevet</span>
+          About <span className="bg-clip-text text-transparent bg-linear-to-r from-emerald-500 to-teal-500">VetSaathi</span>
         </h1>
         <p className="text-neutral-400 max-w-xl text-sm md:text-base leading-relaxed">
           Empowering pet parents and animal guardians with accessible, evidence-based veterinary insights.
@@ -79,7 +79,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
                     <h2 className="text-lg font-bold text-white tracking-wide">Our Mission</h2>
                   </div>
                   <p className="text-sm text-neutral-400 leading-relaxed">
-                    Freevet is a dedicated, open-access platform built to support pet owners and animal lovers. We believe that initial guidance on pet health should be freely accessible to everyone. By compiling intuitive diagnostic questionnaires, educational resources, and emergency information, we help you understand your pet's needs before consulting a professional.
+                    VetSaathi is a dedicated, open-access platform built to support pet owners and animal lovers. We believe that initial guidance on pet health should be freely accessible to everyone. By compiling intuitive diagnostic questionnaires, educational resources, and emergency information, we help you understand your pet's needs before consulting a professional.
                   </p>
                   <p className="text-sm text-neutral-400 leading-relaxed font-light">
                     Whether you care for a household puppy, a stray dog in your neighborhood, or farm animals, our goal is to bridge the gap in animal healthcare accessibility.
@@ -94,7 +94,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
                     <h2 className="text-lg font-bold text-white tracking-wide">Disclaimer</h2>
                   </div>
                   <p className="text-xs text-neutral-400 leading-relaxed">
-                    All tools, diagnostics, and articles provided on Freevet are for educational purposes only.
+                    All tools, diagnostics, and articles provided on VetSaathi are for educational purposes only.
                   </p>
                   <div className="p-3 bg-red-950/15 rounded-xl border border-red-900/30 text-xs text-red-300 leading-relaxed font-medium">
                     This platform is NOT a veterinary clinic. We do not provide prescription medicine or medical treatments. Always consult a licensed veterinarian in emergencies.
@@ -160,7 +160,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
 
               <div className="mt-2 flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 transition-all duration-300">
                 <div className="flex flex-col gap-1 text-center sm:text-left">
-                  <h3 className="font-bold text-white text-sm">Have ideas to improve Freevet?</h3>
+                  <h3 className="font-bold text-white text-sm">Have ideas to improve VetSaathi?</h3>
                   <p className="text-xs text-neutral-400">We constantly improve our services and database based on user suggestions.</p>
                 </div>
                 <div className="flex-1 flex justify-center sm:justify-end">

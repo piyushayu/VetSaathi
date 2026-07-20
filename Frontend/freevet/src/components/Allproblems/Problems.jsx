@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useId } from 'react'
+import React, { useState, useEffect } from 'react'
 import Diseasecard from './Diseasecard'
 import Page from '../Diseases/page'
 import { useOutlet, useParams } from 'react-router-dom'
@@ -11,7 +11,7 @@ function Problems() {
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const id = useId()
+
 
   const LIMIT = 5
 
@@ -59,7 +59,6 @@ function Problems() {
               context={problem.context}
               Info={problem.symptoms || []}
               severity={problem.Severity || problem.severity}
-              id={id}
             />
           </div>
         ))}

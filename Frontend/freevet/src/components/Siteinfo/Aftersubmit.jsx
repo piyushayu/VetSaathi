@@ -9,7 +9,7 @@ function Aftersubmit() {
       </div>
       <h3 className="text-xl font-bold text-white mb-2">Submission Complete</h3>
       <p className="text-sm text-neutral-400 max-w-xs leading-relaxed">
-        Thank you for helping us improve Freevet! Your suggestion has been successfully submitted.
+        Thank you for helping us improve VetSaathi! Your suggestion has been successfully submitted.
       </p>
     </div>
   )

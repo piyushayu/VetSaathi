@@ -12,7 +12,7 @@ function MainBody() {
   const [error, setError] = useState('');
   const navigate = useNavigate()
 
-  const words = ` Freevet provides rapid, intelligent insights for your pets and livestock.Instantly diagnose symptoms, learn about potential diseases`
+  const words = ` VetSaathi provides rapid, intelligent insights for your pets and livestock. Instantly diagnose symptoms, learn about potential diseases`
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -112,21 +112,3 @@ function MainBody() {
 }
 
 export default MainBody;
-
-    // <Button
-    //           type="submit"
-    //           variant="primary"
-    //           className='flex flex-row items-center gap-5'
-    //         >
-    //           Start Search
-    //           <ArrowRightIcon/>
-    //         </Button>
-
-
-      //  <div className="p-8 rounded-2xl bg-neutral-900/30 border border-white/10 backdrop-blur-md shadow-lg text-left flex flex-col justify-center hover:border-indigo-500/30 transition-all duration-300">
-      //     <p className="text-neutral-400 text-base leading-relaxed">
-      //       Freevet provides rapid, intelligent insights for your pets and livestock. 
-      //       Instantly diagnose symptoms, learn about potential diseases, find nearby 
-      //       vet clinics, and maintain comprehensive profile histories for all your animal friends.
-      //     </p>
-      //   </div>

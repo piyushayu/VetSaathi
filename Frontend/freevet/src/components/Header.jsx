@@ -71,7 +71,8 @@ function Header({ className = "" }) {
         <Link to="/" className="flex items-center group cursor-pointer decoration-transparent">
           <img 
             src="https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/public/Images/ChatGPT%20Image%20Jul%2018,%202026,%2006_35_45%20PM.png"
-            alt="Freevet Logo" 
+            alt="VetSaathi Logo" 
+            loading="lazy"
             className="w-12 sm:w-16 h-8 sm:h-10 object-contain opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
             onError={(e) => {
               // Fallback if token expires
@@ -79,7 +80,7 @@ function Header({ className = "" }) {
             }}
           />
           <span className="font-bold text-base sm:text-lg tracking-wide text-neutral-250 hover:text-white transition-all duration-300 ml-1">
-            Freevet
+            VetSaathi
           </span>
         </Link>
       </div>

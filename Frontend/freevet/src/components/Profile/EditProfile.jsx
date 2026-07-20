@@ -174,7 +174,7 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2.5 rounded-lg bg-neutral-700 hover:bg-neutral-600 border border-emerald-500 text-white font-medium shadow-md shadow-neutral-700/10 transition active:scale-95 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-neutral-700 hover:bg-neutral-600 border border-neutral-700 hover:border-neutral-600 text-white font-medium shadow-md shadow-neutral-700/10 transition active:scale-95 cursor-pointer disabled:opacity-50"
                 >
                   {loading ? "Saving..." : "Save Changes"}
                 </button>

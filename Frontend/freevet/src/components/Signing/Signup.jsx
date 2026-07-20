@@ -19,8 +19,6 @@ import { signup } from "@/services/Slice";
 
 import { signUpUser, signInWithGoogle } from "@/lib/auth";
 
-const DEMO_API_URL = "https://jsonplaceholder.typicode.com/posts";
-
 function Signimage() {
   return (
     <div className="hidden md:block h-full w-full">

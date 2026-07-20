@@ -21,6 +21,7 @@ import { Link } from "react-router-dom"
       <img
         src={ImageUrl}
         alt={Name}
+        loading="lazy"
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
@@ -32,7 +33,7 @@ import { Link } from "react-router-dom"
         <h3 className="text-white font-bold text-xl">{Name}</h3>
         <p className="text-white/80 text-sm mt-1 line-clamp-2">{Info}</p>
         <Link to={Name.toLowerCase()} className="block mt-3 w-full">
-          <button className="w-full border border-white text-white hover:bg-white hover:text-black bg-transparent rounded-lg py-2 transition-colors duration-200 cursor-pointer text-sm font-medium">
+          <button className="w-full border border-white/60 hover:border-white text-white hover:bg-white/20 active:bg-white/35 bg-transparent rounded-lg py-2 transition-all duration-200 cursor-pointer text-sm font-medium">
             Explore
           </button>
         </Link>

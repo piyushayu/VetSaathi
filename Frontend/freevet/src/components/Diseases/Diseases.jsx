@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useId } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useOutlet } from 'react-router-dom'
 import Animalcard from './Animalcard'
 import { getAllAnimals } from '@/lib/database'
@@ -7,7 +7,7 @@ import { getAllAnimals } from '@/lib/database'
 
 function Diseases() {
   const outlet = useOutlet();
-  const id = useId();
+
   const [animalsList, setAnimalsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,6 @@ function Diseases() {
               Name={animal.name} 
               Info={animal.info || animal.Info} 
               ImageUrl={animal.image_url || animal.ImageUrl} 
-              id={id} 
             />
           </div>
         ))}
