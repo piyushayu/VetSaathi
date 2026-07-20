@@ -82,7 +82,7 @@ function MainBody() {
               type="text"
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); if(error) setError(''); }}
-              placeholder="Search symptoms, diseases..."
+              placeholder="Search animal, diseases..."
               className="w-full bg-transparent border-none text-white text-sm sm:text-base focus:outline-none placeholder-neutral-500"
             />
           </div>
