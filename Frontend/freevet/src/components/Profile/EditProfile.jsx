@@ -88,8 +88,8 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
       <SuccessToast visible={showSuccess} />
 
       {edit && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="w-full max-w-2xl bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-neutral-100 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="w-full max-w-2xl bg-neutral-900 border border-neutral-800 rounded-2xl p-4 sm:p-6 text-neutral-100 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto custom-scrollbar">
             <h2 className="text-xl font-bold mb-6 text-neutral-200">Edit Profile</h2>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -174,7 +174,7 @@ function EditProfile({ edit, cancelfunctn, onSaveSuccess, userId, currentProfile
                 <button
                   type="submit"
                   disabled={loading}
-                  className="px-5 py-2.5 rounded-lg bg-neutral-700 hover:bg-neutral-600 text-white font-medium shadow-md shadow-neutral-700/10 transition active:scale-95 cursor-pointer disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-lg bg-neutral-700 hover:bg-neutral-600 border border-emerald-500 text-white font-medium shadow-md shadow-neutral-700/10 transition active:scale-95 cursor-pointer disabled:opacity-50"
                 >
                   {loading ? "Saving..." : "Save Changes"}
                 </button>

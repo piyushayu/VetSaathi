@@ -139,7 +139,7 @@ function Contact({open , closefunction}) {
    
                 <button
                   type="submit"
-                  className="mt-2 w-full py-3 bg-neutral-700 hover:bg-neutral-600 text-white font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer shadow-md"
+                  className="mt-2 w-full py-3 bg-neutral-700 hover:bg-neutral-600 border border-emerald-500 text-white font-semibold rounded-xl text-sm transition-all flex items-center justify-center gap-2 active:scale-98 cursor-pointer shadow-md"
                 >
                   <Send className="w-4 h-4" />
                   <span>Send Suggestion</span>

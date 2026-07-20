@@ -55,7 +55,7 @@ function Profile({
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
        
         <div className="p-4 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-sm flex flex-col gap-1">
           <div className="flex items-center gap-1.5 text-xs text-neutral-400 font-medium">
