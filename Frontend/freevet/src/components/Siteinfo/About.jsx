@@ -20,6 +20,7 @@ function About({openform , open}) {
       handle: 'contact@freevet.org',
       href: 'mailto:contact@freevet.org',
       bgColor: 'hover:bg-violet-500/10 hover:border-violet-500/30',
+      borderColor: 'border-violet-500/40',
     },
     {
       name: 'LinkedIn',
@@ -27,6 +28,7 @@ function About({openform , open}) {
       handle : "linkedin.freevet",
       href: 'https://linkedin.com',
       bgColor: 'hover:bg-blue-500/10',
+      borderColor: 'border-blue-500/40',
     },
     {
       name: 'Reddit',
@@ -34,6 +36,7 @@ function About({openform , open}) {
       handle: 'r/freevet',
       href: 'https://reddit.com',
       bgColor: 'hover:bg-orange-500/10',
+      borderColor: 'border-orange-500/40',
     },
     {
       name: 'Twitter',
@@ -42,6 +45,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
       handle: '@freevet_app',
       href: 'https://twitter.com',
       bgColor: 'hover:bg-sky-500/10 ',
+      borderColor: 'border-neutral-700',
     }
   ];
 
@@ -69,7 +73,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
                 
                 <div className="md:col-span-2 flex flex-col gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 hover:border-violet-500/20 hover:shadow-lg hover:shadow-violet-950/5 transition-all duration-300 group">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-violet-500/10 border border-violet-500/20 flex items-center justify-center text-violet-400 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl border border-violet-500/40 flex items-center justify-center text-violet-400 group-hover:scale-105 transition-transform">
                       <Info className="w-5 h-5" />
                     </div>
                     <h2 className="text-lg font-bold text-white tracking-wide">Our Mission</h2>
@@ -84,7 +88,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
 
                 <div className="flex flex-col gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 hover:border-red-500/20 hover:shadow-lg hover:shadow-red-950/5 transition-all duration-300 group">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl border border-red-500/40 flex items-center justify-center text-red-400 group-hover:scale-105 transition-transform">
                       <ShieldAlert className="w-5 h-5" />
                     </div>
                     <h2 className="text-lg font-bold text-white tracking-wide">Disclaimer</h2>
@@ -100,7 +104,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
               
                 <div className="flex flex-col gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 hover:border-indigo-500/20 hover:shadow-lg hover:shadow-indigo-950/5 transition-all duration-300 group">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl border border-indigo-500/40 flex items-center justify-center text-indigo-400 group-hover:scale-105 transition-transform">
                       <Sparkles className="w-5 h-5" />
                     </div>
                     <h2 className="text-lg font-bold text-white tracking-wide">Features</h2>
@@ -124,7 +128,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
 
                 <div className="md:col-span-2 flex flex-col gap-4 p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800/60 hover:border-emerald-500/20 hover:shadow-lg hover:shadow-emerald-950/5 transition-all duration-300 group">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
+                    <div className="w-10 h-10 rounded-xl border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform">
                       <BookOpen className="w-5 h-5" />
                     </div>
                     <h2 className="text-lg font-bold text-white tracking-wide">References & Guidelines</h2>
@@ -187,7 +191,7 @@ https://eczkxdnpwbohewsyikux.supabase.co/storage/v1/object/sign/Images/Screensho
                   className={`flex items-center justify-between p-4 rounded-2xl bg-neutral-900 border border-neutral-800 transition-all duration-300 ${link.bgColor} group`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-neutral-950 flex items-center justify-center border border-neutral-800 group-hover:scale-105 transition-transform overflow-hidden">
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center border ${link.borderColor || 'border-neutral-800'} group-hover:scale-105 transition-transform overflow-hidden`}>
                       {link.icon}
                     </div>
                     <div className="flex flex-col">
